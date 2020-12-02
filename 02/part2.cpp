@@ -17,10 +17,7 @@ int solution(std::vector<std::string>& data) {
 		if (sscanf(rule.c_str(), "%d-%d %c", &i, &j, &c) != 3)
 			return -1;
 
-		i--;
-		j--;
-
-		if ((pass[i] == c) != (pass[j] == c))
+		if ((pass[i - 1] == c) != (pass[j - 1] == c))
 			count++;
 	}
 	return count;
