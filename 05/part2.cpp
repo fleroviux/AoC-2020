@@ -57,14 +57,5 @@ int main() {
 		data.push_back(line);
 
 	printf("result: %d\n", solution(data));
-
-	auto a = decode_bsp("BFFFBBFRRR");
-	auto b = decode_bsp("FFFBBBFRRR");
-	auto c = decode_bsp("BBFFBBFRLL");
-
-	printf("%d - %d %d\n", a.first, a.second, get_seat_id(a));
-	printf("%d - %d %d\n", b.first, b.second, get_seat_id(b));
-	printf("%d - %d %d\n", c.first, c.second, get_seat_id(c));
-
 	return 0;
 }
