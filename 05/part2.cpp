@@ -1,40 +1,22 @@
 #include <fstream>
-#include <utility>
 #include <vector>
 
-std::pair<int, int> decode_bsp(std::string const& bsp) {
-	int x_lo = 0;
-	int x_hi = 128;
-	int y_lo = 0;
-	int y_hi = 8;
-
-	for (int i = 0; i < 7; i++) {
-		if (bsp[i] == 'F')
-			x_hi = (x_lo + x_hi) / 2;
-		else
-			x_lo = (x_lo + x_hi) / 2;
+int get_seat_id(std::string const& bsp) {
+	int id = 0;
+	int x = 512;
+	for (int i = 0; i < 10; i++) {
+		if (bsp[i] == 'B' || bsp[i] == 'R')
+			id |= x;
+		x >>= 1;
 	}
-
-	for (int i = 7; i < 10; i++) {
-		if (bsp[i] == 'L')
-			y_hi = (y_lo + y_hi) / 2;
-		else
-			y_lo = (y_lo + y_hi) / 2;
-	}
-
-	return { (x_lo + x_hi) / 2, (y_lo + y_hi) / 2 };
-}
-
-int get_seat_id(std::pair<int, int> const& seat) {
-	return seat.first * 8 + seat.second;
+	return id;
 }
 
 int solution(std::vector<std::string> const& data) {
 	bool present[128 * 8] {false};
 		
 	for (auto const& bsp : data) {
-		auto seat = decode_bsp(bsp);
-		auto id = get_seat_id(seat);
+		auto id = get_seat_id(bsp);
 		present[id] = true;
 	}
 
