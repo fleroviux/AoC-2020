@@ -53,17 +53,17 @@ int main() {
 
 	printf("result1 %d\n", recurse_part1("shiny gold"));
 
-	std::function<int(std::string const&, int)> recurse_part2 = [&](std::string const& target, int level = 0) -> int {
+	std::function<int(std::string const&)> recurse_part2 = [&](std::string const& target) -> int {
 		int result = 1;
 		auto const& entry = graph.find(target);
 		if (entry == graph.end())
 			return result;
 		auto const& edges = entry->second;
 		for (auto const& edge : edges)
-			result += edge.second * recurse_part2(edge.first, level + 1);
+			result += edge.second * recurse_part2(edge.first);
 		return result;
 	};
 
-	printf("result2: %d\n", recurse_part2("shiny gold", 0) - 1);
+	printf("result2: %d\n", recurse_part2("shiny gold") - 1);
 	return 0;
 }
